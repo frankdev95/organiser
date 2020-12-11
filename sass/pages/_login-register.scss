@@ -1,0 +1,13 @@
+.login,
+.register {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.login {
+  background-image: linear-gradient(to right, $color-primary-1, $color-secondary-1);
+}
+
+.register {
+  background-image: linear-gradient(to right, $color-tertiary-1, $color-tertiary-3);
+}

@@ -1,0 +1,31 @@
+.login,
+.register {
+
+  .submit-btn {
+    backface-visibility: hidden;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    height: 2rem;
+    width: 100%;
+    margin-top: 1rem;
+    transition: transform .2s;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0px);
+    }
+  }
+
+}
+
+.login .submit-btn {
+  background-image: linear-gradient(to right, $color-primary-1, $color-secondary-1);
+}
+
+.register .submit-btn {
+  background-image: linear-gradient(to right, $color-tertiary-2, $color-tertiary-3);
+}

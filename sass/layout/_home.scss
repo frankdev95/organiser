@@ -1,0 +1,41 @@
+.home {
+  display: flex;
+  gap: 5rem ;
+}
+
+.organiser {
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  &__item {
+    border: 1px solid $color-tertiary-3;
+    border-radius: 0 10px 10px 0;
+    width: 10rem;
+    height: 10rem;
+    transition: width 1s;
+
+    h1 {
+      text-align: center;
+      padding: .5rem;
+    }
+  }
+
+  &__content {
+
+    figure {
+
+      img {
+
+      }
+
+      figcaption {
+
+      }
+    }
+  }
+}

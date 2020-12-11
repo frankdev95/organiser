@@ -1,0 +1,81 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Yantramanav', sans-serif;
+}
+
+.heading {
+
+  &__secondary {
+    color: $color-grey-dark-2;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  &__logo {
+    font-family: 'Cedarville Cursive', cursive;
+  }
+}
+
+/* LOGIN FORM */
+
+.login,
+.register {
+  font-family: 'Martel', serif;
+  font-size: .75rem;
+
+  &__form {
+
+    form {
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 200;
+      }
+      input {
+
+        &:not(.submit-btn) {
+          color: $color-black;
+          font-family: 'Martel', serif;
+          font-size: .8rem;
+          font-weight: 300;
+        }
+      }
+
+      label {
+        color: $color-grey-dark-2;
+        font-weight: 600;
+      }
+    }
+  }
+
+  &__container {
+    color: $color-grey-dark-2 ;
+
+    .sign-up,
+    .sign-in {
+
+      span a {
+        &:link,
+        &:visited {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.submit-btn {
+  color: white;
+  font-family: 'Yantramanav', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* NAVIGATION */
+
+.navigation,
+.navigation span,
+.navigation a{
+  color: $color-grey-dark-2;
+  font-family: 'Trirong', serif;
+  font-size: 1.5rem;
+}

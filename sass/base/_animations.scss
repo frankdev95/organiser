@@ -1,0 +1,27 @@
+.dropdown__list.animated > li:nth-child(1) {
+  animation: slideInLeft .3s both;
+}
+
+.dropdown__list.animated > li:nth-child(2) {
+  animation: slideInLeft .3s .15s both;
+}
+
+.dropdown__list.animated > li:nth-child(3) {
+  animation: slideInLeft .3s .3s both;
+}
+
+.dropdown__list.animated > li:nth-child(4) {
+  animation: slideInLeft .3s .45s both;
+}
+
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

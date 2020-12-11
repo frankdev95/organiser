@@ -1,0 +1,69 @@
+<%- include('partials/head') %>
+
+    <section class="register flex">
+        <div class="register__container">
+            <div class="register__form">
+                <form action="/register" class="form" method="POST">
+                    <div class="form__heading u-margin-bottom-small">
+                        <h1 class="heading__secondary">Register</h1>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__group-name">
+                            <svg>
+                                <use xlink:href="images/sprite.svg#icon-profile"></use>
+                            </svg>
+                            <input id="name" type="text" name="name" placeholder="Full Name" required>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__group-email">
+                            <svg>
+                                <use xlink:href="images/sprite.svg#icon-mail"></use>
+                            </svg>
+                            <input id="email" type="email" name="email" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__group-username">
+                            <svg>
+                                <use xlink:href="images/sprite.svg#icon-user"></use>
+                            </svg>
+                            <input id="username" type="text" name="username" placeholder="Username" required>
+                        </div>
+                    </div>
+                    <div class="form__group">
+                        <div class="form__group-password">
+                            <svg>
+                                <use xlink:href="images/sprite.svg#icon-lock"></use>
+                            </svg>
+                            <input id="password" type="password" name="password" placeholder="Password" required>
+                        </div>
+
+                    </div>
+                    <div class="form__group">
+                        <input class="submit-btn" type="submit" value="Register">
+                    </div>
+                </form>
+                <div class="register__social">
+                    <span>Or Sign Up Using</span>
+                    <div class="social__icons">
+                        <svg>
+                            <use xlink:href="images/sprite.svg#icon-facebook2"></use>
+                        </svg>
+                        <svg>
+                            <use xlink:href="images/sprite.svg#icon-twitter"></use>
+                        </svg>
+                        <svg>
+                            <use xlink:href="images/sprite.svg#icon-google2"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-in">
+                <span>Already Registered</span>
+                <span><a href="login">SIGN IN</a></span>
+            </div>
+        </div>
+    </section>
+
+<%- include('partials/foot') %>
