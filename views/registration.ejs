@@ -8,6 +8,9 @@
                         <h1 class="heading__secondary">Register</h1>
                     </div>
                     <div class="form__group">
+                        <div class="tooltip" >
+                            Pleas enter your full name
+                        </div>
                         <div class="form__group-name">
                             <svg>
                                 <use xlink:href="images/sprite.svg#icon-profile"></use>
@@ -16,6 +19,9 @@
                         </div>
                     </div>
                     <div class="form__group">
+                        <div class="tooltip" >
+                            Email must be a valid email address, e.g. me@mydomain.com
+                        </div>
                         <div class="form__group-email">
                             <svg>
                                 <use xlink:href="images/sprite.svg#icon-mail"></use>
@@ -24,15 +30,23 @@
                         </div>
                     </div>
                     <div class="form__group">
-                        <div class="form__group-username">
+                        <div class="tooltip" >
+                            Username must be alphanumerical and contain 5 - 12 characters
+                        </div>
+                        <div class="form__group-username"
+                             data-tip-content="username must be alphanumerical and contain 5-12 characters">
                             <svg>
-                                <use xlink:href="images/sprite.svg#icon-user"></use>
+                                <use xlink:href="images/sprite.svg#icon-user"></use>s
                             </svg>
                             <input id="username" type="text" name="username" placeholder="Username" required>
                         </div>
                     </div>
                     <div class="form__group">
-                        <div class="form__group-password">
+                        <div class="tooltip" >
+                            Passwords must contain at least one number, letter and special character, and be between 8 and 25 characters.
+                        </div>
+                        <div class="form__group-password"
+                             data-tip-content="password must be alphanumerical and contain 8-20 characters">
                             <svg>
                                 <use xlink:href="images/sprite.svg#icon-lock"></use>
                             </svg>

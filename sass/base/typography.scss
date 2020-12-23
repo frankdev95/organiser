@@ -1,5 +1,6 @@
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Yantramanav', sans-serif;
+  font-family: 'Raleway', sans-serif;
+
 }
 
 .heading {
@@ -33,7 +34,6 @@ h1, h2, h3, h4, h5, h6 {
       input {
 
         &:not(.submit-btn) {
-          color: $color-black;
           font-family: 'Martel', serif;
           font-size: .8rem;
           font-weight: 300;
@@ -78,4 +78,34 @@ h1, h2, h3, h4, h5, h6 {
   color: $color-grey-dark-2;
   font-family: 'Trirong', serif;
   font-size: 1.5rem;
+}
+
+/* ORGANISER FIGCAPTION */
+
+.organiser {
+
+  &__content {
+
+    figcaption {
+      color: $color-white;
+
+      h1 {
+        font-weight: 400;
+      }
+
+      h3 {
+        font-weight: 300;
+      }
+    }
+  }
+
+}
+
+.profile {
+
+  h4 {
+    font-size: 1.3rem;
+    color: $color-grey-dark-1;
+    font-weight: 400;
+  }
 }

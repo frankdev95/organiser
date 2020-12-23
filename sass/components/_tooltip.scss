@@ -1,0 +1,25 @@
+.tooltip {
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $color-white;
+  border: 1px solid $color-grey-dark-3;
+  border-radius: 5px;
+  padding: .3rem 1rem;
+  width: max-content;
+  display: none !important;
+
+  &::after {
+    position: absolute;
+    bottom: -.25rem;
+    left: 50%;
+    background-color: $color-white;
+    border: 1px solid;
+    border-color: transparent $color-grey-dark-3 $color-grey-dark-3 transparent;
+    content: "";
+    width: .5rem;
+    height: .5rem;
+    transform: rotate(45deg);
+  }
+}

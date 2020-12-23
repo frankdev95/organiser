@@ -7,7 +7,7 @@
 
   /* MAIN NAVIGATION */
 
-  & .nav {
+  .nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -89,7 +89,7 @@
 
     /* NAV DROPDOWN MENU */
 
-    & .dropdown {
+    .dropdown {
 
       &__content {
         display: none;

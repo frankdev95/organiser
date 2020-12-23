@@ -1,6 +1,5 @@
 .home {
   display: flex;
-  gap: 5rem ;
 }
 
 .organiser {
@@ -13,29 +12,124 @@
   }
 
   &__item {
-    border: 1px solid $color-tertiary-3;
     border-radius: 0 10px 10px 0;
-    width: 10rem;
+    width: 50rem;
     height: 10rem;
     transition: width 1s;
 
-    h1 {
-      text-align: center;
-      padding: .5rem;
+    &:hover {
+
+      svg {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      figcaption {
+        background-color: rgba($color-tertiary-3, .9);
+
+        .manage-btn {
+          opacity: 1;
+        }
+      }
+
+      .fig__content {
+
+        h1 {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        h3 {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
     }
   }
 
   &__content {
+      width: inherit;
+      height: inherit;
 
     figure {
+      position: relative;
+      width: inherit;
+      height: inherit;
 
       img {
-
+        border-radius: 0 20px 20px 0;
+        object-fit: cover;
+        width: inherit;
+        height: inherit;
       }
 
       figcaption {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 0 20px 20px 0;
+        background-color: rgba($color-tertiary-3, .2);
+        transition: background-color .5s;
 
+        svg {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          cursor: pointer;
+          fill: $color-white;
+          width: 1.5rem;
+          height: 1.5rem;
+          opacity: 0;
+          transform: translateX(170%);
+          transition: all .5s;
+
+          &:hover {
+            fill: $color-primary-2;
+          }
+        }
+
+        .fig__content {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: 1.5rem 1rem;
+          pointer-events: none;
+          height: 100%;
+
+          h1 {
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(-200%);
+            transition: all .2s;
+          }
+
+          h3 {
+            opacity: 0;
+            transform: translateX(-28.5%);
+            transition: all .2s .2s;
+          }
+        }
+
+        .manage-btn {
+          position: absolute;
+          right: 0;
+          top: 65%;
+          background-color: rgba($color-primary-2, .3);
+          border-bottom: 1px solid $color-primary-2;
+          border-top: 1px solid $color-primary-2;
+          border-left: 1px solid $color-primary-2;
+          border-radius: 2px;
+          cursor: pointer;
+          padding: .5rem 1rem;
+          opacity: 0;
+          transition: opacity .5s;
+          z-index: 1;
+        }
       }
     }
   }
 }
+

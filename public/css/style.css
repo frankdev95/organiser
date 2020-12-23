@@ -55,7 +55,7 @@ body {
   justify-content: center; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Yantramanav', sans-serif; }
+  font-family: 'Raleway', sans-serif; }
 
 .heading__secondary {
   color: #585858;
@@ -76,7 +76,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 200; }
   .login__form form input:not(.submit-btn),
   .register__form form input:not(.submit-btn) {
-    color: #000000;
     font-family: 'Martel', serif;
     font-size: .8rem;
     font-weight: 300; }
@@ -110,13 +109,48 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Trirong', serif;
   font-size: 1.5rem; }
 
+/* ORGANISER FIGCAPTION */
+.organiser__content figcaption {
+  color: #fff; }
+  .organiser__content figcaption h1 {
+    font-weight: 400; }
+  .organiser__content figcaption h3 {
+    font-weight: 300; }
+
+.profile h4 {
+  font-size: 1.3rem;
+  color: #333333;
+  font-weight: 400; }
+
 .login,
 .register {
   width: 100vw;
   min-height: 100vh; }
 
 .login {
-  background-image: linear-gradient(to right, #71c9ce, #28df99); }
+  background-image: linear-gradient(to right, #71c9ce, #28df99);
+  position: relative; }
+  .login .message {
+    position: absolute;
+    top: 15%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid #f6f7d4;
+    border-radius: 5px;
+    color: #fff;
+    font-size: .8rem;
+    opacity: 0;
+    padding: .5rem 1.5rem;
+    text-transform: initial;
+    transition: opacity .5s; }
+    .login .message svg {
+      position: absolute;
+      right: .2rem;
+      top: .2rem;
+      cursor: pointer;
+      fill: #585858;
+      width: .9rem;
+      height: .9rem;
+      pointer-events: none; }
 
 .register {
   background-image: linear-gradient(to right, #fff8cd, #ff9642); }
@@ -239,7 +273,7 @@ h1, h2, h3, h4, h5, h6 {
 .register .form__group {
   position: relative; }
   .register .form__group:not(:last-child) {
-    margin-bottom: .5rem; }
+    margin-bottom: .65rem; }
   .register .form__group svg {
     position: absolute;
     left: .6rem;
@@ -279,6 +313,73 @@ h1, h2, h3, h4, h5, h6 {
 
 .register .submit-btn {
   background-image: linear-gradient(to right, #ffe05d, #ff9642); }
+
+.tooltip {
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #868686;
+  border-radius: 5px;
+  padding: .3rem 1rem;
+  width: max-content;
+  display: none !important; }
+  .tooltip::after {
+    position: absolute;
+    bottom: -.25rem;
+    left: 50%;
+    background-color: #fff;
+    border: 1px solid;
+    border-color: transparent #868686 #868686 transparent;
+    content: "";
+    width: .5rem;
+    height: .5rem;
+    transform: rotate(45deg); }
+
+.profile {
+  display: flex;
+  align-self: flex-start;
+  justify-content: flex-end;
+  flex-grow: 1; }
+  .profile__container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 5px 5px;
+    padding: 1rem 2rem;
+    gap: .8rem; }
+  .profile__about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem; }
+    .profile__about--picture {
+      clip-path: circle(50% at 50% 50%);
+      shape-outside: circle(50% at 50% 50%);
+      width: 5rem;
+      height: 5rem;
+      z-index: 10; }
+    .profile__about img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%; }
+  .profile__settings {
+    text-align: center; }
+    .profile__settings svg {
+      fill: #333333;
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+      transition: all .5s; }
+      .profile__settings svg:hover {
+        fill: #28df99;
+        animation: rotate360 2s infinite; }
+
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0); }
+  100% {
+    transform: rotate(360deg); } }
 
 .navigation {
   background-color: rgba(113, 201, 206, 0.1);
@@ -359,8 +460,7 @@ h1, h2, h3, h4, h5, h6 {
         outline: none; }
 
 .home {
-  display: flex;
-  gap: 5rem; }
+  display: flex; }
 
 .organiser__container {
   display: flex;
@@ -369,11 +469,85 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%; }
 
 .organiser__item {
-  border: 1px solid #ff9642;
   border-radius: 0 10px 10px 0;
-  width: 10rem;
+  width: 50rem;
   height: 10rem;
   transition: width 1s; }
-  .organiser__item h1 {
-    text-align: center;
-    padding: .5rem; }
+  .organiser__item:hover svg {
+    transform: translateX(0);
+    opacity: 1; }
+  .organiser__item:hover figcaption {
+    background-color: rgba(255, 150, 66, 0.9); }
+    .organiser__item:hover figcaption .manage-btn {
+      opacity: 1; }
+  .organiser__item:hover .fig__content h1 {
+    transform: translateY(0);
+    opacity: 1; }
+  .organiser__item:hover .fig__content h3 {
+    transform: translateX(0);
+    opacity: 1; }
+
+.organiser__content {
+  width: inherit;
+  height: inherit; }
+  .organiser__content figure {
+    position: relative;
+    width: inherit;
+    height: inherit; }
+    .organiser__content figure img {
+      border-radius: 0 20px 20px 0;
+      object-fit: cover;
+      width: inherit;
+      height: inherit; }
+    .organiser__content figure figcaption {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius: 0 20px 20px 0;
+      background-color: rgba(255, 150, 66, 0.2);
+      transition: background-color .5s; }
+      .organiser__content figure figcaption svg {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        fill: #fff;
+        width: 1.5rem;
+        height: 1.5rem;
+        opacity: 0;
+        transform: translateX(170%);
+        transition: all .5s; }
+        .organiser__content figure figcaption svg:hover {
+          fill: #a6e3e9; }
+      .organiser__content figure figcaption .fig__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.5rem 1rem;
+        pointer-events: none;
+        height: 100%; }
+        .organiser__content figure figcaption .fig__content h1 {
+          text-transform: uppercase;
+          opacity: 0;
+          transform: translateY(-200%);
+          transition: all .2s; }
+        .organiser__content figure figcaption .fig__content h3 {
+          opacity: 0;
+          transform: translateX(-28.5%);
+          transition: all .2s .2s; }
+      .organiser__content figure figcaption .manage-btn {
+        position: absolute;
+        right: 0;
+        top: 65%;
+        background-color: rgba(166, 227, 233, 0.3);
+        border-bottom: 1px solid #a6e3e9;
+        border-top: 1px solid #a6e3e9;
+        border-left: 1px solid #a6e3e9;
+        border-radius: 2px;
+        cursor: pointer;
+        padding: .5rem 1rem;
+        opacity: 0;
+        transition: opacity .5s;
+        z-index: 1; }

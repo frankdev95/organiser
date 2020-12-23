@@ -1,0 +1,60 @@
+.profile {
+  display: flex;
+  align-self: flex-start;
+  justify-content: flex-end;
+  flex-grow: 1;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 5px 5px;
+    padding: 1rem 2rem;
+    gap: .8rem;
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+
+    &--picture {
+      clip-path: circle(50% at 50% 50%);
+      shape-outside: circle(50% at 50% 50%);
+      width: 5rem;
+      height: 5rem;
+      z-index: 10;
+    }
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__settings {
+    text-align: center;
+    svg {
+      fill: $color-grey-dark-1;
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+      transition: all .5s;
+
+        &:hover {
+          fill: $color-secondary-1;
+          animation: rotate360 2s infinite;
+        }
+    }
+  }
+}
+
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
