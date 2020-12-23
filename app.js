@@ -5,6 +5,7 @@ const ejs = require('ejs');
 const app = express();
 const mongoose = require('mongoose');
 const encrypt = require('mongoose-encryption');
+const md5 = require('md5');
 
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =
@@ -45,8 +46,7 @@ const userSchema = new mongoose.Schema ({
     },
     password: {
         type: String,
-        required: [true, 'Please provide a password'],
-        match: patterns.password
+        required: [true, 'Please provide a password']
     }
 });
 
@@ -94,7 +94,7 @@ app.post('/register', (req, res) => {
         name: req.body.name,
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: md5(req.body.password)
     });
 
     newUser.save((err) => {
@@ -112,7 +112,7 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
-    const password = req.body.password;
+    const password = md5(req.body.password);
 
     User.findOne({username: username},function(err, user) {
         if(err) {
