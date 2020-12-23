@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const app = express();
 const mongoose = require('mongoose');
-const encrypt = require('mongoose-encryption');
-const md5 = require('md5');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =
@@ -50,11 +50,6 @@ const userSchema = new mongoose.Schema ({
     }
 });
 
-const encKey = process.env.ENC_KEY;
-const sigKey = process.env.SIG_KEY;
-
-userSchema.plugin(encrypt, {encryptionKey: encKey, signingKey: sigKey, encryptedFields: ['password']});
-
 const User = new mongoose.model('User', userSchema);
 
 let port = process.env.PORT;
@@ -90,21 +85,30 @@ app.get('/home', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    const newUser = new User({
-        name: req.body.name,
-        username: req.body.username,
-        email: req.body.email,
-        password: md5(req.body.password)
-    });
 
-    newUser.save((err) => {
+    /* pass the password from the form into the bcrypt hashing algorithm to perform the specified salt rounds, and
+       return the hash created for safe and secure insertion into the database. */
+    bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
         if(err) {
             console.log(err);
         } else {
-            let confirmationMessage = 'Registration successful, please login using credentials.'
-            res.render('login', {
-                confirmationMessage: confirmationMessage,
-                usernamePlaceholder: req.body.username
+            const newUser = new User({
+                name: req.body.name,
+                username: req.body.username,
+                email: req.body.email,
+                password: hash
+            });
+
+            newUser.save((err) => {
+                if(err) {
+                    console.log(err);
+                } else {
+                    let confirmationMessage = 'Registration successful, please login using credentials.'
+                    res.render('login', {
+                        confirmationMessage: confirmationMessage,
+                        usernamePlaceholder: req.body.username
+                    });
+                }
             });
         }
     });
@@ -112,7 +116,7 @@ app.post('/register', (req, res) => {
 
 app.post('/login', (req, res) => {
     const username = req.body.username;
-    const password = md5(req.body.password);
+    const password = req.body.password;
 
     User.findOne({username: username},function(err, user) {
         if(err) {
@@ -125,15 +129,21 @@ app.post('/login', (req, res) => {
                     usernamePlaceholder: null
                 });
             } else {
-               if(user.password === password) {
-                   res.render('home');
-               } else {
-                   let confirmationMessage = 'Password does not match username, please enter the correct password.';
-                   res.render('login', {
-                       confirmationMessage: confirmationMessage,
-                       usernamePlaceholder: username
-                   })
-               }
+                /* compare the hash within the database to the password the user passed, result evaluates to true if the
+                   password and the hashed password match */
+                bcrypt.compare(password, user.password, (err, result) => {
+                    if(err) {
+                        console.log(err);
+                    } else if(result) {
+                        res.render('home');
+                    } else {
+                        let confirmationMessage = 'Password does not match username, please enter the correct password.';
+                        res.render('login', {
+                            confirmationMessage: confirmationMessage,
+                            usernamePlaceholder: username
+                        })
+                    }
+                })
            }
         }}
     )
