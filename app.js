@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -49,8 +50,8 @@ const userSchema = new mongoose.Schema ({
     }
 });
 
-const encKey = 'qdLi35Zp8jJWhZlxGcIPewqWJPYMb3IOijPzXjvDABg=';
-const sigKey = 'SXvtfI1yFx4hZCWmFAGNfyO4PXz7yRPNxRPlgm88LtF9z_ADktx-5MgtKuQUtbU6bstHLF17AaqgSkfZ2JYL9g';
+const encKey = process.env.ENC_KEY;
+const sigKey = process.env.SIG_KEY;
 
 userSchema.plugin(encrypt, {encryptionKey: encKey, signingKey: sigKey, encryptedFields: ['password']});
 
