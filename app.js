@@ -179,16 +179,16 @@ const userSchema = new mongoose.Schema ({
 /*********************PLUGINS*********************/
 
 userSchema.plugin(passportLocalMongoose);
-accountSchema.plugin(encrypt, {
-    encryptionKey: process.env.ENC_KEY,
-    signingKey: process.env.SIG_KEY,
-    encryptedFields: ['password']
-});
-cardSchema.plugin(encrypt, {
-    encryptionKey: process.env.ENC_KEY,
-    signingKey: process.env.SIG_KEY,
-    encryptedFields: ['securityID', 'pin']
-});
+// accountSchema.plugin(encrypt, {
+//     encryptionKey: process.env.ENC_KEY,
+//     signingKey: process.env.SIG_KEY,
+//     encryptedFields: ['password']
+// });
+// cardSchema.plugin(encrypt, {
+//     encryptionKey: process.env.ENC_KEY,
+//     signingKey: process.env.SIG_KEY,
+//     encryptedFields: ['securityID', 'pin']
+// });
 
 /*********************MODELS*********************/
 
