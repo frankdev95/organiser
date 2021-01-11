@@ -4,6 +4,7 @@
   "description": "Organise sensitive information",
   "main": "app.js",
   "scripts": {
+    "start": "node scripts/index.js",
     "compile:sass": "node-sass sass/main.scss public/css/style.css -w"
   },
   "keywords": [],
