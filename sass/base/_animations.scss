@@ -26,3 +26,17 @@
   }
 }
 
+@keyframes pulsateGreen {
+  0% {
+    background-color: rgba($color-secondary-1, .1);
+  }
+
+  50% {
+    background-color: rgba($color-secondary-1, 1);
+  }
+
+  100% {
+    background-color: rgba($color-secondary-1, .1);
+  }
+}
+

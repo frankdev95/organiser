@@ -36,7 +36,7 @@ app.set('view engine', 'ejs');
 
 // Replace the uri string with your MongoDB deployment's connection string.
 const uri =
-    "mongodb+srv://frank-admin:14RK68SG7nrXqQ7g@cluster0.makro.mongodb.net/test?retryWrites=true&w=majority";
+    "mongodb+srv://frank-admin:14RK68SG7nrXqQ7g@cluster0.makro.mongodb.net/organiserDB?retryWrites=true&w=majority";
 const url =
     "mongodb://localhost:27017/organiserDB";
 
@@ -48,7 +48,7 @@ const options = {
     autoIndex: true
 }
 
-mongoose.connect(url, options)
+mongoose.connect(uri, options)
     .then(() => console.log('Successfully connected to DB'))
     .catch((err) => console.error(err));
 
@@ -402,6 +402,7 @@ app.get('/get/:type/:info', (req, res) => {
 
     }
     if(req.params.type === 'bills') {
+
         if(req.params.info === 'count') {
                 Bill.countDocuments({}, (err, count) => {
                 res.send({
@@ -488,9 +489,15 @@ app.get('/get/:type/:info', (req, res) => {
                     });
                     return;
                 }
-                res.send({
-                    info: `£${sum[0].total}`
-                });
+                if(sum.length > 0) {
+                    res.send({
+                        info: `£${sum[0].total}`
+                    });
+                } else {
+                    res.send({
+                       info: '£0'
+                    });
+                }
             })
         }
     }
@@ -613,7 +620,7 @@ app.post('/add/:type', (req, res) => {
             URL: req.body.url,
             username: req.body.username,
             password: req.body.password,
-            state: req.body.state
+            state: req.body.states
         });
 
         account.save((err) => {
@@ -687,7 +694,6 @@ app.post('/add/:type', (req, res) => {
 
         
     } else if(req.params.type === 'bills') {
-        console.error(req.body);
         let bill = new Bill({
             name: req.body.name,
             type: req.body.type,

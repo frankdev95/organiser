@@ -297,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let modalWrap = document.querySelector('.main--table .modal__wrap');
         let modalMask = modalWrap.querySelector('.modal__mask');
         let modal = modalWrap.querySelector('.modal');
-        let modalForm = modal.querySelector('.form');
+        let modalForm = document.getElementById('itemform');
         let modalCloseBtn = modal.querySelector('svg');
 
         itemSubmitBtn.addEventListener('click', () => {
@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let accounts =  new Item([
             {name: 'Name', type: 'text'}, {name: 'Type', type: 'text'}, {name: 'Account Holder', type: 'text'},
             {name: 'Company', type: 'text'}, {name: 'URL', type: 'text'}, {name: 'Username', type: 'text'},
-            {name: 'Password', type: 'password'}, {name: 'State', type: 'text'}
+            {name: 'Password', type: 'password'}, {name: 'states', type: 'select'}
         ], modalForm, tableHead);
 
         let banking = new Item([
@@ -347,13 +347,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let bills = new Item([
             {name: 'Name', type: 'text'}, {name: 'Type', type: 'text'}, {name: 'Creditor', type: 'text'},
-            {name: 'Amount', type: 'number'}, {name: 'Date Due', type: 'date'}, {name: 'Status', type: 'text'}
+            {name: 'Amount', type: 'number'}, {name: 'Date Due', type: 'date'}, {name: 'status', type: 'select'}
         ], modalForm, tableHead);
         let cards = new Item([
             {name: 'Name', type: 'text'}, {name: 'Type', type: 'text'}, {name: 'Account Holder', type: 'text'},
             {name: 'Card Provider', type: 'text'}, {name: 'Card Number', type: 'number'},
             {name: 'Expiry Date', type: 'date'}, {name: 'Security ID', type: 'password'},
-            {name: 'Pin', type: 'password'}, {name: 'State', type: 'text'}
+            {name: 'Pin', type: 'password'}, {name: 'states', type: 'select'}
         ], modalForm, tableHead);
 
         loadItemDetails(itemType);
@@ -374,12 +374,20 @@ document.addEventListener("DOMContentLoaded", function() {
             modalForm.setAttribute('action', '/add/' + itemType);
 
             if(itemType === 'accounts') {
+                accounts.createModalElements();
+                accounts.createTableRows();
                 accounts.drawElements();
             } else if(itemType === 'banks') {
+                banking.createModalElements();
+                banking.createTableRows();
                 banking.drawElements();
             } else if(itemType === 'bills') {
+                bills.createModalElements();
+                bills.createTableRows();
                 bills.drawElements();
             } else {
+                cards.createModalElements();
+                cards.createTableRows();
                 cards.drawElements();
             }
 

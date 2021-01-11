@@ -40,6 +40,7 @@
     &__group {
       position: relative;
 
+
       &:not(:last-child) {
         margin-bottom: .5rem;
       }
@@ -81,6 +82,21 @@
       &::placeholder {
         color: $color-grey-dark-3;
         font-family: Raleway, sans-serif;
+      }
+    }
+
+    &__select {
+      border: 1px solid $color-grey-light-2;
+      border-radius: 5px;
+      color: $color-grey-dark-2;
+      font-family: Martel, sans-serif;
+      margin-bottom: .5rem;
+      padding: .2rem .5rem;
+      width: 100%;
+
+      &:active,
+      &:focus {
+        outline: none;
       }
     }
   }

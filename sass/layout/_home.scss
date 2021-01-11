@@ -137,7 +137,7 @@
           }
 
           &__active {
-            background-color: rgba($color-secondary-1, .8);
+            animation: pulsateGreen 1s infinite;
             border: 1px solid $color-secondary-1;
             top: 52%;
           }

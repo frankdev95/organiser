@@ -48,7 +48,7 @@
 
                 </td>
                 <td> <%= item.state %></td>
-        <% } else if (type === 'banks') {  console.log('banks');%>
+        <% } else if (type === 'banks') { %>
                 <td> <%= item.name %></td>
                 <td> <%= item.type %></td>
                 <td> <%= item.holder %></td>
@@ -64,12 +64,15 @@
                     </div>
                 </td>
                 <input type="hidden">
-        <% } else if(type === 'bills') {  %>
+        <% } else if(type === 'bills') {
+
+            let dueDate = new Date(item.dueDate).toLocaleDateString();
+        %>
                 <td> <%= item.name %></td>
                 <td> <%= item.type %></td>
                 <td> <%= item.creditor %></td>
                 <td> <%= item.amount %></td>
-                <td> <%= item.dueDate %></td>
+                <td> <%= dueDate %></td>
                 <td> <%= item.status %></td>
         <% } else { %>
                 <td> <%= item.name %></td>
@@ -113,7 +116,7 @@
                 <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
             </svg>
             <h1 class="u-margin-bottom-small"></h1>
-            <form class="form" METHOD="POST" autocomplete="off">
+            <form class="form" METHOD="POST" autocomplete="off" id="itemform">
             </form>
         </div>
     </div>
