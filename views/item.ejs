@@ -1,0 +1,154 @@
+<%- include('partials/header') %>
+
+<section class="main--table" type="<%= type %>">
+    <div class="table__selector">
+        <div class="message">
+            <svg>
+                <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
+            </svg>
+            <p><%= confirmationMessage %></p>
+        </div>
+        <div class="selector">
+            <form class="selector__form"  method="POST">
+                <select class="select" name="options" id="">
+                    <option value="accounts">Accounts</option>
+                    <option value="banks">Banking</option>
+                    <option value="bills">Bills</option>
+                    <option value="cards">Cards</option>
+                </select>
+            </form>
+        </div>
+        <div class="criteria">
+            <div class="btn">Add Account</div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+        </tr>
+        </thead>
+        <tbody>
+
+        <% items.forEach((item) => { %>
+        <tr>
+        <% if(type === 'accounts') { %>
+                <td> <%= item.name %></td>
+                <td> <%= item.type %></td>
+                <td> <%= item.holder %></td>
+                <td> <%= item.company %></td>
+                <td> <%= item.URL %></td>
+                <td> <%= item.username %></td>
+                <td>
+                    <div class="show">
+                        <svg class="show__icon">
+                            <use xlink:href="/images/sprite2.svg#icon-key"></use>
+                        </svg>
+                        <p>Show</p>
+                    </div>
+
+                </td>
+                <td> <%= item.state %></td>
+        <% } else if (type === 'banks') {  console.log('banks');%>
+                <td> <%= item.name %></td>
+                <td> <%= item.type %></td>
+                <td> <%= item.holder %></td>
+                <td> <%= item.bank %></td>
+                <td> <%= item.URL %></td>
+                <td> <%= item.username %></td>
+                <td>
+                    <div class="show">
+                        <svg class="show__icon">
+                            <use xlink:href="/images/sprite2.svg#icon-key"></use>
+                        </svg>
+                        <p>Show</p>
+                    </div>
+                </td>
+                <input type="hidden">
+        <% } else if(type === 'bills') {  %>
+                <td> <%= item.name %></td>
+                <td> <%= item.type %></td>
+                <td> <%= item.creditor %></td>
+                <td> <%= item.amount %></td>
+                <td> <%= item.dueDate %></td>
+                <td> <%= item.status %></td>
+        <% } else { %>
+                <td> <%= item.name %></td>
+                <td> <%= item.type %></td>
+                <td> <%= item.holder %></td>
+                <td> <%= item.provider %></td>
+                <td> <%= item.number %></td>
+                <td> <%= item.expiryDate %></td>
+                <td field="securityID">
+                    <div class="show">
+                        <svg class="show__icon">
+                            <use xlink:href="/images/sprite2.svg#icon-key"></use>
+                        </svg>
+                        <p>Show</p>
+                    </div>
+                </td>
+                <td field="pin">
+                    <div class="show">
+                        <svg class="show__icon">
+                            <use xlink:href="/images/sprite2.svg#icon-key"></use>
+                        </svg>
+                        <p>Show</p>
+                    </div>
+                </td>
+                <td> <%= item.state %></td>
+        <% } %>
+                <td>
+                    <button class="delete-btn" type="submit">
+                        DELETE
+                    </button>
+                </td>
+            <input class="item-id" type="hidden" itemID="<%= item._id %>">
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <div class="modal__wrap">
+        <div class="modal__mask"></div>
+        <div class="modal">
+            <svg>
+                <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
+            </svg>
+            <h1 class="u-margin-bottom-small"></h1>
+            <form class="form" METHOD="POST" autocomplete="off">
+            </form>
+        </div>
+    </div>
+    <div class="confirmation">
+        <div class="confirmation__mask"></div>
+        <div class="confirmation__content">
+            <h1 class="confirmation__heading">Are you sure you want to delete this record?</h1>
+            <form method="POST">
+                <div class="confirmation__buttons">
+                    <button type="button">Yes</button>
+                    <button type="button">No</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="password">
+        <div class="message">
+            <svg>
+                <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
+            </svg>
+            <p></p>
+        </div>
+        <div class="password__mask"></div>
+        <div class="password__container">
+            <svg>
+                <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
+            </svg>
+            <div class="password__box">
+                <p></p>
+            </div>
+            <h3>Enter your account password:</h3>
+            <input type="password">
+            <div class="password__show-btn">SHOW</div>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/foot') %>

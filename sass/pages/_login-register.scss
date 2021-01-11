@@ -3,36 +3,22 @@
   width: 100vw;
   min-height: 100vh;
 
+  .message {
+    top: 15%;
+    background-color: rgba($color-white,.2);
+    border: 1px solid $color-secondary-4;
+    color: $color-white;
+
+    svg {
+      fill: $color-grey-dark-2;
+    }
+  }
 }
 
 .login {
   background-image: linear-gradient(to right, $color-primary-1, $color-secondary-1);
   position: relative;
 
-  .message {
-    position: absolute;
-    top: 15%;
-    background-color: rgba($color-white,.2);
-    border: 1px solid $color-secondary-4;
-    border-radius: 5px;
-    color: $color-white;
-    font-size: .8rem;
-    opacity: 0;
-    padding: .5rem 1.5rem;
-    text-transform: initial;
-    transition: opacity .5s;
-
-    svg {
-      position: absolute;
-      right: .2rem;
-      top: .2rem;
-      cursor: pointer;
-      fill: $color-grey-dark-2;
-      width: .9rem;
-      height: .9rem;
-      pointer-events: none;
-    }
-  }
 }
 
 .register {

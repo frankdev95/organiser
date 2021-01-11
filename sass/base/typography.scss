@@ -3,6 +3,11 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 
+input {
+  color: $color-grey-dark-2;
+  font-family: Martel,sans-serif;
+}
+
 .heading {
 
   &__secondary {

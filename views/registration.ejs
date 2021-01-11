@@ -1,6 +1,12 @@
 <%- include('partials/head') %>
 
     <section class="register flex">
+        <div class="message">
+            <svg>
+                <use xlink:href="images/sprite.svg#icon-circle-with-cross"></use>
+            </svg>
+            <p><%= confirmationMessage %></p>
+        </div>
         <div class="register__container">
             <div class="register__form">
                 <form action="/register" class="form" method="POST">

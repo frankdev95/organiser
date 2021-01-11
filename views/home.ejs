@@ -24,25 +24,25 @@
                             <svg class="dropdown__icon">
                                 <use xlink:href="images/sprite.svg#icon-v-card"></use>
                             </svg>
-                            <a href="#" class="dropdown__link">Accounts</a>
+                            <a href="/manage/accounts" class="dropdown__link">Accounts</a>
                         </li>
                         <li class="dropdown__item">
                             <svg class="dropdown__icon">
                                 <use xlink:href="images/sprite.svg#icon-library"></use>
                             </svg>
-                            <a href="#" class="dropdown__link">Banking</a>
+                            <a href="/manage/banks" class="dropdown__link">Banking</a>
                         </li>
                         <li class="dropdown__item">
                             <svg class="dropdown__icon">
                                 <use xlink:href="images/sprite.svg#icon-credit"></use>
                             </svg>
-                            <a href="#" class="dropdown__link">Bills</a>
+                            <a href="/manage/bills" class="dropdown__link">Bills</a>
                         </li>
                         <li class="dropdown__item">
                             <svg class="dropdown__icon">
                                 <use xlink:href="images/sprite.svg#icon-credit-card"></use>
                             </svg>
-                            <a href="#" class="dropdown__link">Cards</a>
+                            <a href="/manage/cards" class="dropdown__link">Cards</a>
                         </li>
                     </ul>
                 </div>
@@ -50,7 +50,7 @@
                     <svg class="nav__icon">
                         <use xlink:href="images/sprite.svg#icon-switch"></use>
                     </svg>
-                    <a href="#" class="nav__link">Log Out</a>
+                    <a href="/logout" class="nav__link">Log Out</a>
                 </li>
             </ul>
             <div class="nav__logo">
@@ -66,18 +66,50 @@
             <div class="organiser__item">
                 <div class="organiser__content">
                     <figure>
-                        <img src="images/home/accounts.jpg" alt="">
+                        <img src="images/home/accounts.jpg" alt="Account manager">
                         <figcaption>
-                            <svg>
+                            <svg class="expand__svg">
                                 <use xlink:href="images/sprite2.svg#icon-expand"></use>
                             </svg>
                             <div class="fig__content">
-                                <h1>Accounts</h1>
-                                <h3>Manage your accounts.</h3>
+                                <h1 class="content__hide">Accounts</h1>
+                                <div class="fig__statistics" type="accounts">
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="fas fa-hashtag stat__icon"></i>
+                                            <h3 class="record-number">No of Records</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="count"></span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="far fa-clock stat__icon"></i>
+                                            <h3>Last entry date</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="date"></span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card multiple">
+                                        <div class="stat__header">
+                                            <i class="fas fa-power-off stat__icon"></i>
+                                            <h3>Activity</h3>
+                                        </div>
+                                        <div class="stat__content" style="padding-top: .5rem">
+                                            <span type="active" class="state">5</span>
+                                            <span type="inactive" class="state">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="content__hide">Manage your accounts.</h3>
                             </div>
-                            <div class="manage-btn">
-                                <h3>Manage</h3>
-                            </div>
+                            <a class="content__hide" href="/manage/accounts" style="color: white">
+                                <div class="manage-btn">
+                                    <h3>Manage</h3>
+                                </div>
+                            </a>
                         </figcaption>
                     </figure>
                 </div>
@@ -85,18 +117,40 @@
             <div class="organiser__item">
                 <div class="organiser__content">
                     <figure>
-                        <img src="images/home/banking.jpg" alt="">
+                        <img src="images/home/banking.jpg" alt="Bank">
                         <figcaption>
-                            <svg>
+                            <svg class="expand__svg">
                                 <use xlink:href="images/sprite2.svg#icon-expand"></use>
                             </svg>
                             <div class="fig__content">
-                                <h1>Banking</h1>
-                                <h3>Manage online banking.</h3>
+                                <h1 class="content__hide">Banking</h1>
+                                <div class="fig__statistics" type="banks">
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="fas fa-hashtag stat__icon"></i>
+                                            <h3>No of Records</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="count"></span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="far fa-clock stat__icon"></i>
+                                            <h3>Last entry date</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="date"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="content__hide">Manage online banking.</h3>
                             </div>
-                            <div class="manage-btn">
-                                <h3>Manage</h3>
-                            </div>
+                            <a class="content__hide" href="/manage/banks" style="color: white">
+                                <div class="manage-btn">
+                                    <h3>Manage</h3>
+                                </div>
+                            </a>
                         </figcaption>
                     </figure>
                 </div>
@@ -104,18 +158,78 @@
             <div class="organiser__item">
                 <div class="organiser__content">
                     <figure>
-                        <img src="images/home/bills.jpg" alt="">
+                        <img src="images/home/bills.jpg" alt="Dollar bill">
                         <figcaption>
-                            <svg>
-                                <use xlink:href="images/sprite2.svg#icon-expand"></use>
+                            <svg class="expand__svg">
+                                <use xlink:href="images/sprite2.svg#icon-expand" ></use>
                             </svg>
                             <div class="fig__content">
-                                <h1>Bills</h1>
-                                <h3>Manage your bills.</h3>
+                                <h1 class="content__hide">Bills</h1>
+                                <div class="fig__statistics" type="bills">
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="fas fa-hashtag stat__icon"></i>
+                                            <h3>No of Records</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="count"></span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="far fa-clock stat__icon"></i>
+                                            <h3>Last entry date</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="date"></span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card multiple">
+                                        <div class="stat__header">
+                                            <i class="fas fa-calendar-alt stat__icon"></i>
+                                            <h3>Next Bill</h3>
+                                        </div>
+                                        <div class="stat__content" style="padding-top: 1rem">
+                                            <span type="creditor" style="font-size: 1.1rem">Frank Lockett</span>
+                                            <span type="date" style="font-size: 1rem">12/11/10</span>
+                                            <span type="amount" style="font-size: 1rem">$500</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="far fa-check-circle stat__icon"></i>
+                                            <h3>Paid</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="paid">5</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="far fa-times-circle stat__icon"></i>
+                                            <h3>Unpaid</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="unpaid">10</span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="fas fa-file-invoice-dollar stat__icon"></i>
+                                            <h3>Balance</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="balance">£500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="content__hide">Manage your bills.</h3>
                             </div>
-                            <div class="manage-btn">
-                                <h3>Manage</h3>
-                            </div>
+                            <a class="content__hide" href="/manage/bills" style="color: white">
+                                <div class="manage-btn">
+                                    <h3>Manage</h3>
+                                </div>
+                            </a>
                         </figcaption>
                     </figure>
                 </div>
@@ -123,18 +237,50 @@
             <div class="organiser__item">
                 <div class="organiser__content">
                     <figure>
-                        <img src="images/home/cards.jpg" alt="">
+                        <img src="images/home/cards.jpg" alt="Cards from wallet">
                         <figcaption>
-                            <svg>
+                            <svg class="expand__svg">
                                 <use xlink:href="images/sprite2.svg#icon-expand"></use>
                             </svg>
                             <div class="fig__content">
-                                <h1>Cards</h1>
-                                <h3>Manage your cards.</h3>
+                                <h1 class="content__hide">Cards</h1>
+                                <div class="fig__statistics" type="cards">
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="fas fa-hashtag stat__icon"></i>
+                                            <h3>No of Records</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="count"></span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card">
+                                        <div class="stat__header">
+                                            <i class="far fa-clock stat__icon"></i>
+                                            <h3>Last entry date</h3>
+                                        </div>
+                                        <div class="stat__content">
+                                            <span type="date"></span>
+                                        </div>
+                                    </div>
+                                    <div class="stat__card multiple">
+                                        <div class="stat__header">
+                                            <i class="fas fa-power-off stat__icon"></i>
+                                            <h3>Activity</h3>
+                                        </div>
+                                        <div class="stat__content" style="padding-top: .5rem">
+                                             <span type="active" class="state">5</span>
+                                             <span type="inactive" class="state">3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="content__hide">Manage your cards.</h3>
                             </div>
-                            <div class="manage-btn">
-                                <h3>Manage</h3>
-                            </div>
+                            <a class="content__hide" href="/manage/cards" style="color: white">
+                                <div class="manage-btn">
+                                    <h3>Manage</h3>
+                                </div>
+                            </a>
                         </figcaption>
                     </figure>
                 </div>
@@ -145,9 +291,9 @@
         <div class="profile__container">
             <div class="profile__about">
                 <div class="profile__about--picture">
-                    <img src="images/home/profile.jpg" alt="">
+                    <img src="images/home/profile.jpg" alt="Profile picture">
                 </div>
-                <h4>Hi Frank</h4>
+                <h4>Hi <%= userName %></h4>
             </div>
             <div class="profile__settings">
                 <svg>

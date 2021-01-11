@@ -29,3 +29,18 @@
 .register .submit-btn {
   background-image: linear-gradient(to right, $color-tertiary-2, $color-tertiary-3);
 }
+
+.delete-btn {
+  background-color: rgba($color-delete, .5);
+  border: 1px solid $color-delete;
+  border-radius: 2px;
+  color: rgba($color-white, .9);
+  cursor: pointer;
+  padding: .3rem .6rem;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
+
