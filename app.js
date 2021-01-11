@@ -57,6 +57,16 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {});
 
+let port = process.env.PORT;
+if(port === null || port === undefined) {
+    port = 3000;
+}
+
+app.listen(port, () => {
+    console.log('Port running on port ' + port);
+});
+
+
 /*********************REGEX PATTERNS*********************/
 // used for validation to ensure user registration details match the required criteria.
 
@@ -232,15 +242,6 @@ passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-let port = process.env.PORT;
-if(port === null || port === undefined) {
-    port = 3000;
-}
-
-app.listen(port, () => {
-    console.log('Port running on port ' + port);
-});
 
 app.get('/login', (req, res) => {
     if(req.isAuthenticated()) {

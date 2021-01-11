@@ -9,6 +9,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "14.15.3"
+  },
   "devDependencies": {
     "live-server": "^1.2.1",
     "node-sass": "^5.0.0"
