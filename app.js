@@ -67,26 +67,6 @@ app.listen(port, () => {
     console.log('Port running on port ' + port);
 });
 
-/*********************PASSPORT CONFIGURATION*********************/
-// used to keep track of existing user sessions and handle new user registration using authentication.
-
-passport.use(User.createStrategy());
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-passport.use(new GoogleStrategy({
-        clientID: GOOGLE_CLIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://www.example.com/auth/google/callback"
-    },
-    function(accessToken, refreshToken, profile, cb) {
-        User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            return cb(err, user);
-        });
-    }
-));
-
 /*********************REGEX PATTERNS*********************/
 // used for validation to ensure user registration details match the required criteria.
 
@@ -220,6 +200,27 @@ const Account = new mongoose.model('Account', accountSchema);
 const Bank = new mongoose.model('Bank', bankingSchema);
 const Bill = new mongoose.model('Bill', billSchema);
 const Card = new mongoose.model('Card', cardSchema);
+
+
+/*********************PASSPORT CONFIGURATION*********************/
+// used to keep track of existing user sessions and handle new user registration using authentication.
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+passport.use(new GoogleStrategy({
+        clientID: GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://www.example.com/auth/google/callback"
+    },
+    function(accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
+    }
+));
 
 /*********************HELPER FUNCTIONS*********************/
 
