@@ -10,7 +10,7 @@ const encrypt = require('mongoose-encryption');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
-const ObjectID = require('mongodb').ObjectID;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const confirmationMessages = {
     'delete' : 'Record successfully deleted.'
@@ -23,6 +23,7 @@ let userName;
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
+
 app.use(session({
     secret: 'musOsEAjkWi9s5DAOw3QPuC9fhEC9wTG9PV36RvV3kW+fI1OR5vRM2MbM8bJqqyUgnGfQ1E1/nf3bsv0omFrtA==',
     resave: false,
@@ -66,6 +67,25 @@ app.listen(port, () => {
     console.log('Port running on port ' + port);
 });
 
+/*********************PASSPORT CONFIGURATION*********************/
+// used to keep track of existing user sessions and handle new user registration using authentication.
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+passport.use(new GoogleStrategy({
+        clientID: GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://www.example.com/auth/google/callback"
+    },
+    function(accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
+    }
+));
 
 /*********************REGEX PATTERNS*********************/
 // used for validation to ensure user registration details match the required criteria.
@@ -179,16 +199,18 @@ const userSchema = new mongoose.Schema ({
 /*********************PLUGINS*********************/
 
 userSchema.plugin(passportLocalMongoose);
-// accountSchema.plugin(encrypt, {
-//     encryptionKey: process.env.ENC_KEY,
-//     signingKey: process.env.SIG_KEY,
-//     encryptedFields: ['password']
-// });
-// cardSchema.plugin(encrypt, {
-//     encryptionKey: process.env.ENC_KEY,
-//     signingKey: process.env.SIG_KEY,
-//     encryptedFields: ['securityID', 'pin']
-// });
+
+accountSchema.plugin(encrypt, {
+    encryptionKey: process.env.ENC_KEY,
+    signingKey: process.env.SIG_KEY,
+    encryptedFields: ['password']
+});
+
+cardSchema.plugin(encrypt, {
+    encryptionKey: process.env.ENC_KEY,
+    signingKey: process.env.SIG_KEY,
+    encryptedFields: ['securityID', 'pin']
+});
 
 /*********************MODELS*********************/
 
@@ -235,13 +257,7 @@ function findUserAddItem(username, type, item, response) {
     });
 }
 
-/*********************PASSPORT CONFIGURATION*********************/
-// used to keep track of existing user sessions and handle new user registration using authentication.
-
-passport.use(User.createStrategy());
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+/*********************ROUTE HANDLERS*********************/
 
 app.get('/login', (req, res) => {
     if(req.isAuthenticated()) {
