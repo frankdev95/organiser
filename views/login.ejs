@@ -9,7 +9,7 @@
         </div>
         <div class="login__container">
             <div class="login__form">
-                <form action="/login" class="form" method="POST">
+                <form action="/authentication/login" class="form" method="POST">
                     <div class="form__heading u-margin-bottom-small">
                         <h1 class="heading__secondary">Login</h1>
                     </div>
@@ -17,7 +17,7 @@
                         <label for="username">Username</label>
                         <div class="form__group-username">
                             <svg class="form__icon">
-                                <use xlink:href="images/sprite.svg#icon-user"></use>
+                                <use xlink:href="/images/sprite.svg#icon-user"></use>
                             </svg>
                             <input id="username" type="text" name="username" placeholder="Username"
                                    value="<%= usernamePlaceholder %>" required>
@@ -27,7 +27,7 @@
                         <label for="password">Password</label>
                         <div class="form__group-password">
                             <svg class="form__icon">
-                                <use xlink:href="images/sprite.svg#icon-lock"></use>
+                                <use xlink:href="/images/sprite.svg#icon-lock"></use>
                             </svg>
                             <input id="password" type="password" name="password" placeholder="Password" required>
                         </div>
@@ -37,26 +37,9 @@
                         <input class="submit-btn" type="submit" value="Login">
                     </div>
                 </form>
-                <div class="login__social">
-                    <span>Or Login Using</span>
-                    <div class="social__icons">
-                        <svg>
-                            <use xlink:href="images/sprite.svg#icon-facebook2"></use>
-                        </svg>
-                        <svg>
-                            <use xlink:href="images/sprite.svg#icon-twitter"></use>
-                        </svg>
-                        <a href="/auth/google">
-                            <svg>
-                                <use xlink:href="images/sprite.svg#icon-google2"></use>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
             <div class="sign-up">
                 <span>Not Registered?</span>
-                <span><a href="register">SIGN UP</a></span>
+                <span><a href="/authentication/register">SIGN UP</a></span>
             </div>
         </div>
     </section>

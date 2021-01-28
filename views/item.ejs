@@ -100,11 +100,10 @@
                 <td> <%= item.state %></td>
         <% } %>
                 <td>
-                    <button class="delete-btn" type="submit">
+                    <button class="delete-btn" type="submit" itemID="<%= item._id %>">
                         DELETE
                     </button>
                 </td>
-            <input class="item-id" type="hidden" itemID="<%= item._id %>">
         </tr>
         <% }) %>
         </tbody>
@@ -116,7 +115,7 @@
                 <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
             </svg>
             <h1 class="u-margin-bottom-small"></h1>
-            <form class="form" METHOD="POST" autocomplete="off" id="itemform">
+            <form class="form" METHOD="POST" autocomplete="off" id="add-item-form">
             </form>
         </div>
     </div>

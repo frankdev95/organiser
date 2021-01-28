@@ -297,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let modalWrap = document.querySelector('.main--table .modal__wrap');
         let modalMask = modalWrap.querySelector('.modal__mask');
         let modal = modalWrap.querySelector('.modal');
-        let modalForm = document.getElementById('itemform');
+        let modalForm = document.getElementById('add-item-form');
         let modalCloseBtn = modal.querySelector('svg');
 
         itemSubmitBtn.addEventListener('click', () => {
@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             tableSelector.querySelector('.criteria .btn').innerHTML = `Add ${item}`;
             modal.querySelector('h1').innerText = item;
-            modalForm.setAttribute('action', '/add/' + itemType);
+            modalForm.setAttribute('action', `/${itemType}`);
 
             if(itemType === 'accounts') {
                 accounts.createModalElements();
@@ -462,7 +462,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         deleteButtons.forEach(button => {
             button.addEventListener('click', () => {
-                itemID = button.parentElement.parentElement.querySelector('.item-id').getAttribute('itemID');
+                itemID = button.getAttribute('itemID');
                 open(confirmContainer, confirmContent);
             })
         });
@@ -473,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         confirmYes.addEventListener('click', () => {
             close(confirmContainer, confirmContent)
-            confirmForm.setAttribute('action', '/delete/' + itemType + '/' + itemID);
+            confirmForm.setAttribute('action', `/${itemType}/${itemID}?_method=DELETE`);
             confirmForm.submit();
         })
 
