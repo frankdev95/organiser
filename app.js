@@ -11,6 +11,8 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocalMongoose = require('passport-local-mongoose');
 const ObjectID = require('mongodb').ObjectID;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
 
 const confirmationMessages = {
     'delete' : 'Record successfully deleted.'
@@ -184,6 +186,9 @@ accountSchema.plugin(encrypt, {
     signingKey: process.env.SIG_KEY,
     encryptedFields: ['password']
 });
+
+userSchema.plugin(findOrCreate);
+
 cardSchema.plugin(encrypt, {
     encryptionKey: process.env.ENC_KEY,
     signingKey: process.env.SIG_KEY,
@@ -243,6 +248,29 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+passport.use(new GoogleStrategy({
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        callbackURL: 'http://localhost:3000/auth/google/home'
+    },
+    function(accessToken, refreshToken, profile, cb) {
+        User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
+    }
+));
+
+/*********************ROUTE HANDLERS*********************/
+
+app.get('/', (req, res) => {
+    res.redirect('/login');
+});
+
+app.get('/auth/google', (req, res) => {
+    passport.authenticate('google', { scope: ['profile'] });
+});
+
+
 app.get('/login', (req, res) => {
     if(req.isAuthenticated()) {
         res.redirect('/home');
@@ -253,10 +281,6 @@ app.get('/login', (req, res) => {
         });
     }
 
-});
-
-app.get('/', (req, res) => {
-    res.redirect('/login');
 });
 
 app.get('/register', (req, res) => {
