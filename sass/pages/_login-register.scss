@@ -4,10 +4,10 @@
   min-height: 100vh;
 
   .message {
-    top: 15%;
+    top: 20%;
     background-color: rgba($color-white,.2);
     border: 1px solid $color-secondary-4;
-    color: $color-white;
+    color: $color-grey-dark-2;
 
     svg {
       fill: $color-grey-dark-2;
@@ -16,11 +16,11 @@
 }
 
 .login {
-  background-image: linear-gradient(to right, $color-primary-1, $color-secondary-1);
+  background-image: linear-gradient(to right, $color-white, $color-primary-1);
   position: relative;
 
 }
 
 .register {
-  background-image: linear-gradient(to right, $color-tertiary-1, $color-tertiary-3);
+  background-image: linear-gradient(to right, $color-primary-1, $color-white);
 }

@@ -1,4 +1,4 @@
-const express = require('express');
+    const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const User = require('../models/user');
@@ -36,18 +36,19 @@ router.post('/register', (req, res) => {
     User.register({
         name: req.body.name,
         username: req.body.username,
-        email: req.body.email
+        email: req.body.email,
+        profileImage: '/images/home/profile.jpg'
     }, req.body.password, (err) => {
         if(err.name === 'MongoError' && err.code === 11000) {
-            res.render('registration', {
+            return res.render('registration', {
                 confirmationMessage: 'An account registered with this email address already exists.'
             });
         } else if(err.name === 'UserExistsError') {
-            res.render('registration', {
+            return res.render('registration', {
                 confirmationMessage: 'An account registered with this username already exists.'
             });
         } else {
-            res.render('login', {
+            return res.render('login', {
                 confirmationMessage: 'Registration successful, you can now login.',
                 usernamePlaceholder: req.body.username
             });
@@ -62,12 +63,11 @@ router.post('/login', (req, res) => {
        user is redirected to the home page */
     passport.authenticate('local', (err, user, info) => {
         if(err) {
-            renderLogin(res, err, null);
-            return;
+            return renderLogin(res, err, null);
         }
         if(!user) {
-            renderLogin(res, 'Incorrect username or password, please try again.', null);
-            return;
+            return renderLogin(res, 'Incorrect username or password, please try again.', null);
+
         }
         req.logIn(user, (err) => {
             if(err) {

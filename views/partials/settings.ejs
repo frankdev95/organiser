@@ -1,0 +1,33 @@
+<div class="settings">
+    <div class="settings__mask"></div>
+    <div class="settings__content">
+        <div class="message">
+            <p><%= confirmationMessage  %></p>
+        </div>
+        <svg>
+            <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
+        </svg>
+        <div class="settings__header">
+            <h1 class="settings_heading">Settings</h1>
+        </div>
+        <form class="settings__form" action="/users/<%= user._id %>?_method=PATCH" enctype="multipart/form-data" method="POST">
+            <div class="form__group">
+                <label for="profile-img">Profile Picture</label>
+                <input type="file" name="profile-img" id="profile-img">
+            </div>
+            <div class="form__group">
+                <label for="name">Name</label>
+                <input value="<%= user.name %>" type="text" name="name" id="name">
+            </div>
+            <div class="form__group">
+                <label for="email">Email Address</label>
+                <input value="<%= user.email %>" type="text" name="email" id="name">
+            </div>
+            <div class="form__group">
+                <label for="username">Username</label>
+                <input value="<%= user.username %>" type="text" name="username" id="username">
+            </div>
+            <button class="settings__submit-btn" type="submit">Submit</button>
+        </form>
+    </div>
+</div>

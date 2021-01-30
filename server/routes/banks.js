@@ -25,7 +25,7 @@ router.get('/:message?', (req, res) => {
     }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     let bank = new Bank({
         name: req.body.name,
         type: req.body.type,
@@ -38,65 +38,98 @@ router.post('/', (req, res) => {
     bank.save((err, bank) => {
         if(err) {
             console.error(err);
-
-            res.render('item', {
+            return res.render('item', {
                 type: 'banks',
                 confirmationMessage: 'Unable to add new record, please try again.',
                 items: req.user.banks
             });
-            return;
         }
 
         if(Array.isArray(req.body.password)) {
             req.body.password.forEach((password) => {
-                bcrypt.hash(password, saltRounds, (err, hash) => {
-                    if(err) {
-                        console.error(err);
-                        return;
-                    }
-
-                    let password = new Password({
-                        entryID: bank._id,
-                        password: hash
-                    });
-
-                    password.save((err) => {
-                        if(err) {
-                            return console.error(err);
-                        }
-                    });
-                })
-            });
-        } else {
-            bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
-                if(err) {
-                    console.error(err);
-                    return;
-                }
-
-                let password = new Password({
+                let passwordEntry = new Password({
                     entryID: bank._id,
-                    password: hash
+                    password: password
                 });
 
-                password.save((err) => {
+                passwordEntry.save((err) => {
                     if(err) {
                         return console.error(err);
                     }
                 });
-            })
+            });
+        } else {
+            let password = new Password({
+                entryID: bank._id,
+                password: req.body.password
+            });
+
+            password.save((err) => {
+                if(err) {
+                    return console.error(err);
+                }
+            });
         }
     });
 
-    req.user.banks.push(bank);
-    req.user.save();
+    await req.user.banks.push(bank);
+    await req.user.save();
 
     res.render('item', {
         type: 'banks',
         confirmationMessage: 'Record added successfully',
         items: req.user.banks
     });
+});
 
+router.post('/:id', (req, res) => {
+    if(req.body.password) {
+        req.user.authenticate(req.body.password, (err, user, passwordError) => {
+            if(passwordError) {
+                console.error(passwordError);
+                res.send({
+                    message: "Incorrect Password"
+                });
+            } else {
+                Bank.findById(req.params.id, (err, bank) => {
+                    if(err) {
+                        console.error(err);
+                        return res.send({
+                            message: "Could not find details, please try again."
+                        });
+                    }
+                    Password.find({entryID: bank._id},(err, results) => {
+                        if(err) {
+                            console.error(err);
+                            return res.send({
+                                message: "Could not find details, please try again."
+                            });
+                        }
+                        if(results.length > 1) {
+                            let passwords = [];
+                            for(let i = 0; i < results.length; i++) {
+                                passwords.push(results[i].password);
+                            }
+                            res.send({
+                                password: passwords
+                            });
+                        } else {
+                            res.send({
+                                password: results[0].password
+                            })
+                        }
+
+
+                    });
+
+                });
+            }
+        });
+    } else {
+        res.send({
+            message: "Please enter your account password"
+        });
+    }
 });
 
 router.delete('/:id',  async (req, res) => {

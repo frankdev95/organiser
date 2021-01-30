@@ -3,9 +3,6 @@
 <section class="main--table" type="<%= type %>">
     <div class="table__selector">
         <div class="message">
-            <svg>
-                <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
-            </svg>
             <p><%= confirmationMessage %></p>
         </div>
         <div class="selector">
@@ -39,7 +36,7 @@
                 <td> <%= item.URL %></td>
                 <td> <%= item.username %></td>
                 <td>
-                    <div class="show">
+                    <div class="show" itemID="<%= item._id %>">
                         <svg class="show__icon">
                             <use xlink:href="/images/sprite2.svg#icon-key"></use>
                         </svg>
@@ -56,7 +53,7 @@
                 <td> <%= item.URL %></td>
                 <td> <%= item.username %></td>
                 <td>
-                    <div class="show">
+                    <div class="show" itemID="<%= item._id %>">
                         <svg class="show__icon">
                             <use xlink:href="/images/sprite2.svg#icon-key"></use>
                         </svg>
@@ -81,16 +78,16 @@
                 <td> <%= item.provider %></td>
                 <td> <%= item.number %></td>
                 <td> <%= item.expiryDate %></td>
-                <td field="securityID">
-                    <div class="show">
+                <td>
+                    <div class="show" itemID="<%= item._id %>" field="securityID">
                         <svg class="show__icon">
                             <use xlink:href="/images/sprite2.svg#icon-key"></use>
                         </svg>
                         <p>Show</p>
                     </div>
                 </td>
-                <td field="pin">
-                    <div class="show">
+                <td>
+                    <div class="show" itemID="<%= item._id %>" field="pin">
                         <svg class="show__icon">
                             <use xlink:href="/images/sprite2.svg#icon-key"></use>
                         </svg>
@@ -133,9 +130,6 @@
     </div>
     <div class="password">
         <div class="message">
-            <svg>
-                <use xlink:href="/images/sprite.svg#icon-circle-with-cross"></use>
-            </svg>
             <p></p>
         </div>
         <div class="password__mask"></div>

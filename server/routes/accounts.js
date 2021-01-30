@@ -22,7 +22,6 @@ router.get('/:message?', (req, res) => {
     }
 });
 
-
 router.post('/', (req, res) => {
 
     let account = new Account({
@@ -36,18 +35,18 @@ router.post('/', (req, res) => {
         state: req.body.states
     });
 
-    account.save((err) => {
+    account.save(async (err) => {
         if(err) {
             console.error(err);
-            res.render('item', {
+             return res.render('item', {
                 type: 'accounts',
                 confirmationMessage: 'Unable to add new record, please try again.',
                 items: req.user.accounts
             });
         }
 
-        req.user.accounts.push(account);
-        req.user.save();
+        await req.user.accounts.push(account);
+        await req.user.save();
 
         res.render('item', {
             type: 'accounts',
@@ -55,6 +54,36 @@ router.post('/', (req, res) => {
             items: req.user.accounts
         });
     });
+});
+
+
+router.post('/:id', async (req, res) => {
+    if(req.body.password) {
+        req.user.authenticate(req.body.password, (err, user, passwordError) => {
+            if(passwordError) {
+                console.error(passwordError);
+                res.send({
+                    message: "Incorrect Password"
+                });
+            } else {
+                Account.findById(req.params.id, (err, account) => {
+                    if(err) {
+                        console.error(err);
+                        return res.send({
+                            message: "Could not find details, please try again."
+                        });
+                    }
+                    res.send({
+                        password: account.password
+                    });
+                });
+            }
+        });
+    } else {
+        res.send({
+            message: "Please enter your account password"
+        });
+    }
 });
 
 router.delete('/:id',  async (req, res) => {
@@ -65,15 +94,15 @@ router.delete('/:id',  async (req, res) => {
     }, null, async (err) => {
         if(err) {
             console.error(err);
-            res.redirect('/accounts');
+            return res.redirect('/accounts');
         }
-    });
 
-    await Account.deleteOne({_id: req.params.id}, null, (err) => {
-        if(err) {
-            console.error(err);
-            res.redirect('/accounts');
-        }
+        await Account.deleteOne({_id: req.params.id}, null, (err) => {
+            if(err) {
+                console.error(err);
+                return res.redirect('/accounts');
+            }
+        });
     });
 
     res.redirect('/accounts/delete');

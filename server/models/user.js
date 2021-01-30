@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema ({
         unique: true,
         match: patterns.username
     },
+    profileImage: String,
     email: {
         type: String,
         lowercase: true,

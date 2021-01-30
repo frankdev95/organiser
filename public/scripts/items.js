@@ -67,7 +67,6 @@ class Item {
                 });
 
                 formGroup.appendChild(select);
-                console.log(formGroup);
             }
 
             this.modalElements.push(formGroup);

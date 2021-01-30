@@ -22,6 +22,41 @@ router.get('/:message?', (req, res) => {
     }
 });
 
+router.post('/:id', (req, res) => {
+    if(req.body.password) {
+        req.user.authenticate(req.body.password, (err, user, passwordError) => {
+            if(passwordError) {
+                console.error(passwordError);
+                res.send({
+                    message: "Incorrect Password"
+                });
+            } else {
+                Card.findById(req.params.id, (err, card) => {
+                    if(err) {
+                        console.error(err);
+                        return res.send({
+                            message: "Could not find details, please try again."
+                        })
+                    }
+
+                    if(req.body.field === "securityID") {
+                        res.send({
+                            password: card.securityID
+                        });
+                    } else {
+                        res.send({
+                            password: card.pin
+                        });
+                    }
+                });
+            }
+        });
+    } else {
+        res.send({
+            message: "Please enter your account password"
+        });
+    }
+});
 
 router.post('/', (req, res) => {
 
@@ -37,7 +72,7 @@ router.post('/', (req, res) => {
         state: req.body.state
     });
 
-    card.save((err) => {
+    card.save(async (err) => {
         if(err) {
             console.error(err);
             res.render('item', {
@@ -47,8 +82,8 @@ router.post('/', (req, res) => {
             });
         }
 
-        req.user.cards.push(card);
-        req.user.save();
+        await req.user.cards.push(card);
+        await req.user.save();
 
         res.render('item', {
             type: 'cards',
@@ -66,14 +101,14 @@ router.delete('/:id',  async (req, res) => {
     }, null, async (err) => {
         if(err) {
             console.error(err);
-            res.redirect('/cards');
+            return res.redirect('/cards');
         }
     });
 
     await Card.deleteOne({_id: req.params.id}, null, (err) => {
         if(err) {
             console.error(err);
-            res.redirect('/cards');
+            return res.redirect('/cards');
         }
     });
 

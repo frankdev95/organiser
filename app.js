@@ -22,7 +22,8 @@ const authenticationRoutes = require('./server/routes/authentication'),
       accountRoutes = require('./server/routes/accounts'),
       bankRoutes = require('./server/routes/banks'),
       billRoutes = require('./server/routes/bills'),
-      cardRoutes = require('./server/routes/cards');
+      cardRoutes = require('./server/routes/cards'),
+      userRoutes = require('./server/routes/users');
 
 
 let port = process.env.PORT || 3000;
@@ -33,6 +34,7 @@ let userName;
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static('public'));
+app.use('/uploads', express.static('uploads'));
 app.use(methodOverride('_method'));
 app.use(session({
     secret: 'musOsEAjkWi9s5DAOw3QPuC9fhEC9wTG9PV36RvV3kW+fI1OR5vRM2MbM8bJqqyUgnGfQ1E1/nf3bsv0omFrtA==',
@@ -48,6 +50,7 @@ app.use('/accounts', accountRoutes);
 app.use('/banks', bankRoutes);
 app.use('/bills', billRoutes);
 app.use('/cards', cardRoutes);
+app.use('/users', userRoutes);
 
 app.set('view engine', 'ejs');
 
@@ -88,9 +91,11 @@ app.get('/', (req, res) => {
 app.get('/home', (req, res) => {
     if(req.isAuthenticated()) {
         let firstNameRegex = /([a-z]+)(?=\s)/i;
-        userName = req.user.name.match(firstNameRegex)[0];
+        let firstName = req.user.name.match(firstNameRegex)[0];
         res.render('home', {
-            userName: userName
+            user: req.user,
+            firstName: firstName,
+            confirmationMessage: ''
         });
     } else {
         res.redirect('/authentication/login');

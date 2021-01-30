@@ -4,15 +4,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let formGroups = document.querySelectorAll('.register__form .form__group:not(:last-child)');
 
-    // CONFIRMATION MESSAGE VARIABLES
-
-    let loginMessage = document.querySelector('.login .message');
-    let registerMessage = document.querySelector('.register .message');
-    let tableMessage = document.querySelector('.table__selector .message');
-    let passwordMessage = document.querySelector('.password .message');
-    let passwordMessageText, passwordMessageClose;
-
-
     /* NAV VARIABLES */
 
     let navDropdownBtn = document.querySelector(".dropdown__btn-item");
@@ -36,6 +27,18 @@ document.addEventListener("DOMContentLoaded", function() {
         email: /^([a-z\d."+\-_]+)@([a-z\d-.[\]]+)\.([a-z\d]{2,8})(\.[a-z]+)?$/i,
         username: /^[a-z\d]{5,12}$/i,
         password: /^(?=.*[a-z])(?=.*[\d])(?=.*[\W])[a-z\d\W]{8,25}$/i,
+    }
+
+    function open(container, component) {
+        container.style.opacity = "1";
+        container.style.pointerEvents = "initial";
+        component.style.transform = "translate(-50%, -50%) scale(1)";
+    }
+
+    function close(container, component) {
+        container.style.opacity = "0";
+        container.style.pointerEvents = "none";
+        component.style.transform = "translate(-50%, -50%) scale(0)";
     }
 
     /* REGISTER PAGE TOOLTIP */
@@ -79,39 +82,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /* LOGIN / REGISTER / TABLE PAGE MESSAGES */
 
-    if(document.body.contains(loginMessage)) {
-        let loginMessageText = loginMessage.querySelector('p');
-        let loginMessageClose = loginMessage.querySelector('svg');
+    // CONFIRMATION MESSAGE VARIABLES
 
-        confirmationMessage(loginMessage, loginMessageText, loginMessageClose);
-    }
+    let loginMessage = document.querySelector('.login .message');
+    let registerMessage = document.querySelector('.register .message');
+    let tableMessage = document.querySelector('.table__selector .message');
+    let passwordMessage = document.querySelector('.password .message');
+    let settingsMessage = document.querySelector('.settings .message');
+    let passwordMessageShow = true;
+    let allowClick, animateMessage, removeMessage, clearText;
 
-    if(document.body.contains(registerMessage)) {
-        let registerMessageText = registerMessage.querySelector('p');
-        let registerMessageClose = registerMessage.querySelector('svg');
+    if(document.body.contains(loginMessage)) confirmationMessage(loginMessage);
+    if(document.body.contains(registerMessage)) confirmationMessage(registerMessage);
+    if(document.body.contains(settingsMessage)) confirmationMessage(settingsMessage);
+    if(document.body.contains(tableMessage)) confirmationMessage(tableMessage);
+    if(document.body.contains(passwordMessage)) confirmationMessage(passwordMessage);
 
-        confirmationMessage(registerMessage, registerMessageText, registerMessageClose);
-    }
+    function confirmationMessage(el, animateTop = true, top = 0) {
+        let elText = el.querySelector('p');
 
-    if(document.body.contains(tableMessage)) {
-        let tableMessageText = tableMessage.querySelector('p');
-        let tableMessageClose = tableMessage.querySelector('svg');
+        clearTimeout(allowClick);
+        allowClick = setTimeout(() => passwordMessageShow = true, 4000);
 
-        confirmationMessage(tableMessage, tableMessageText, tableMessageClose);
-    }
+        if(elText.textContent.length > 0 && passwordMessageShow)  {
+            passwordMessageShow = false;
 
-    if(document.body.contains(passwordMessage)) {
-        passwordMessageText = passwordMessage.querySelector('p');
-        passwordMessageClose = passwordMessage.querySelector('svg');
-    }
+            clearTimeout(animateMessage);
+            clearTimeout(removeMessage);
+            clearTimeout(clearText);
 
-    function confirmationMessage(el, elText, elClose, animate = true, top = 0) {
-        if(elText.textContent.length > 0) {
             el.style.opacity = "1";
-            elClose.style.pointerEvents = "initial";
 
-            if(animate) {
-                setTimeout(() => {
+            if(animateTop) {
+                animateMessage = setTimeout(() => {
                     el.animate([
                         {top: top, opacity: 0}
                     ], {
@@ -119,29 +122,32 @@ document.addEventListener("DOMContentLoaded", function() {
                         fill: "forwards"
                     });
 
-                    el.style.pointerEvents = "none";
-                    setTimeout(() => {
-                        elText.textContent = '';
-                    }, 500);
                 } , 3000)
             }
 
-        }
+            removeMessage = setTimeout(() => {
+                if(!animateTop) {
+                    el.style.opacity = 0;
+                    clearText = setTimeout(() => {
+                        elText.textContent = '';
+                        passwordMessageShow = true;
+                    }, 500);
+                } else {
+                    passwordMessageShow = true;
+                    elText.textContent = '';
+                };
 
-        elClose.addEventListener('click', () => {
-            el.style.opacity = "0";
-            setTimeout(() => {
-                elText.textContent = '';
-            }, 500);
-            elClose.style.pointerEvents = "none";
-        });
+                clearTimeout(allowClick);
+            }, 3500);
+
+        }
     }
+
+
 
     /* HOME PAGE NAV DROPDOWN */
 
-    if(document.body.contains(navDropdownBtn)) {
-        navDropdownBtn.addEventListener("click", toggleDropdown);
-    }
+    if(document.body.contains(navDropdownBtn)) navDropdownBtn.addEventListener("click", toggleDropdown);
 
     function toggleDropdown() {
         navDropdownContent.classList.toggle("show");
@@ -150,6 +156,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     /* HOME PAGE */
+
+    /* SETTINGS MODAL HIDE / SHOW FUNCTIONALITY*/
+    let settingsBtn = document.querySelector('.profile__settings');
+    let settingsMask = document.querySelector('.settings__mask');
+    let settingsContent = document.querySelector('.settings__content');
+
+    if(document.body.contains(settingsBtn)) {
+        let settingsCloseBtn = settingsContent.querySelector('svg');
+
+        settingsBtn.addEventListener('click', () => {
+            open(settingsMask, settingsContent);
+        });
+
+        settingsMask.addEventListener('click', () => {
+            close(settingsMask, settingsContent);
+        });
+
+        settingsCloseBtn.addEventListener('click', () => {
+            close(settingsMask, settingsContent);
+        });
+    }
 
     /* ORGANISER EXPAND FUNCTIONALITY */
 
@@ -208,7 +235,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
 
-            getCardInfo();
+            getCardInfo()
+                .then()
+                .catch(err => {
+                    console.log(err);
+                });
 
             btn.addEventListener('click', () => {
                 clicked = !clicked;
@@ -311,19 +342,6 @@ document.addEventListener("DOMContentLoaded", function() {
         modalCloseBtn.addEventListener('click', () => {
             close(modalWrap, modal);
         });
-
-        function open(container, component) {
-            container.style.opacity = "1";
-            container.style.pointerEvents = "initial";
-            component.style.transform = "translate(-50%, -50%) scale(1)";
-
-        }
-
-        function close(container, component) {
-            container.style.opacity = "0";
-            container.style.pointerEvents = "none";
-            component.style.transform = "translate(-50%, -50%) scale(0)";
-        }
         
         /* SELECTOR DROP DOWN / MODAL CONFIGURATION*/
 
@@ -483,16 +501,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
         /* PASSWORD SHOW FUNCTIONALITY */
 
-        let tableRow, protectedFields, currentField;
-        let tableShowButtons = document.querySelectorAll('.table .show');
-        let passwordContainer = document.querySelector('.password');
-        let passwordMask = passwordContainer.querySelector('.password__mask');
-        let passwordContent = passwordContainer.querySelector('.password__container');
-        let passwordBox = passwordContent.querySelector('.password__box');
-        let textBox =  passwordBox.querySelector('p');
+        let passwordShowButtons = document.querySelectorAll('.table .show');
+        let passwordMask = document.querySelector('.password__mask');
+        let passwordContent = document.querySelector('.password__container');
+        let passwordTextBox =  document.querySelector('.password__box p');
         let passwordClose = passwordContent.querySelector('svg');
         let passwordField = passwordContent.querySelector('input[type=password]');
         let passwordSubmit = passwordContent.querySelector('.password__show-btn');
+        let currentField;
 
         const options = {
             method: 'POST',
@@ -502,62 +518,68 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         async function fetchPassword() {
-            let url =  `/password/${itemType}`;
+            let url =  `${itemType}/${itemID}`;
 
             options.body = JSON.stringify({
                 password: passwordField.value,
-                itemID: itemID
+                field: currentField,
             })
-
-            if(protectedFields.length > 1) url += '/' + currentField;
 
             const response = await fetch(url, options);
             return await response.json();
         }
 
         function showPassword(password) {
-            if(password !== undefined) {
-                textBox.innerText = password;
-                textBox.style.opacity = '1';
-                passwordField.value = '';
+            if(Array.isArray(password)) {
+                password.forEach(password => {
+                    if(password !== undefined) {
+                        passwordTextBox.innerText += `${password}\n`;
+                    }
+                });
+            } else {
+                if(password !== undefined) {
+                    passwordTextBox.innerText = password;
+                }
             }
-        }
-
-        function clearFields() {
-            textBox.innerText = '';
+            passwordTextBox.style.opacity = '1';
             passwordField.value = '';
 
         }
 
-        tableShowButtons.forEach(button => {
+        function clearFields() {
+            passwordMessage.style.opacity = 0;
+            passwordMessageShow = true;
+            passwordTextBox.style.opacity = 0;
+            passwordTextBox.innerText = '';
+            passwordField.value = '';
+
+        }
+
+        passwordShowButtons.forEach(button => {
             button.addEventListener('click', () => {
-                tableRow = button.parentElement.parentElement;
-                protectedFields = tableRow.querySelectorAll('.show');
-                itemID = tableRow.querySelector('.item-id').getAttribute('itemID');
-
-                if(protectedFields.length > 1) currentField = button.parentElement.getAttribute('field');
-
-                open(passwordContainer, passwordContent);
+                if(itemType === 'cards') { // bills items have multiple protected fields
+                    currentField = button.getAttribute('field'); // receive the current field to be shown
+                }
+                itemID = button.getAttribute('itemID');
+                open(passwordMask, passwordContent);
             });
         });
 
         passwordMask.addEventListener('click', () => {
-            close(passwordContainer, passwordContent);
-            textBox.style.opacity = '0';
+            close(passwordMask, passwordContent);
             clearFields();
         });
 
         passwordClose.addEventListener('click', () => {
-            close(passwordContainer, passwordContent);
-            textBox.style.opacity = '0';
+            close(passwordMask, passwordContent);
             clearFields();
         });
 
         passwordSubmit.addEventListener('click', () => {
             fetchPassword()
                 .then(r => {
-                    if(r.message !== undefined) passwordMessageText.innerText = r.message;
-                    confirmationMessage(passwordMessage, passwordMessageText, passwordMessageClose);
+                    if(r.message) passwordMessage.querySelector('p').innerText = r.message;
+                    confirmationMessage(passwordMessage, false);
                     showPassword(r.password);
                 })
         });
@@ -566,7 +588,8 @@ document.addEventListener("DOMContentLoaded", function() {
             if(e.key === 'Enter') {
                 fetchPassword()
                     .then(r => {
-                        if(r.message !== undefined) passwordMessageText.innerText = r.message;
+                        if(r.message) passwordMessage.querySelector('p').innerText = r.message;
+                        confirmationMessage(passwordMessage);
                         showPassword(r.password);
                     })
             }

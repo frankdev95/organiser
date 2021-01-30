@@ -291,9 +291,9 @@
         <div class="profile__container">
             <div class="profile__about">
                 <div class="profile__about--picture">
-                    <img src="images/home/profile.jpg" alt="Profile picture">
+                    <img src="<%= user.profileImage %>" alt="Profile picture">
                 </div>
-                <h4>Hi <%= userName %></h4>
+                <h4>Hi <%= firstName %></h4>
             </div>
             <div class="profile__settings">
                 <svg>
@@ -302,6 +302,7 @@
             </div>
         </div>
     </div>
+    <%- include('partials/settings') %>
 </section>
 
 <%- include('partials/foot') %>
